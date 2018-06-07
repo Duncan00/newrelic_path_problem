@@ -2,14 +2,9 @@
 
 const Koa = require('koa');
 const Router = require('koa-router');
-const bodyParser = require('koa-bodyparser');
-const responseTime = require('koa-response-time');
 
 const decorateBody = require('./middlewares/decorateBody');
-const handle401Error = require('./middlewares/handle401Error');
 const handle404Error = require('./middlewares/handle404Error');
-const handle4xxError = require('./middlewares/handle4xxError');
-const handle500Error = require('./middlewares/handle500Error');
 
 module.exports = function makeApp() {
 	const app = new Koa();
@@ -39,9 +34,6 @@ module.exports = function makeApp() {
 		});
 
 	return app
-		// .use(handle500Error())
-		// .use(handle4xxError())
-		// .use(handle401Error())
 		.use(decorateBody())
 
 		.use(insecure.routes())
